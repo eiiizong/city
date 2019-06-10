@@ -1,8 +1,9 @@
 <template>
   <div class="demands-type-list">
-    <TopNav />
+    <TopNav :iconClassName="isShowSearch?'':'icon-search'"
+            @click="handShowSearch" />
     <div class="content">
-      <ul>
+      <ul v-show="!isShowSearch">
         <li v-for="(item, index) in 6"
             @click="linkNav(index)"
             :key="index">
@@ -14,27 +15,39 @@
         </li>
       </ul>
     </div>
+    <div v-show="isShowSearch">
+      <Search @clickSearch="clickSearch"
+              :isHasInputSearch="true" />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import TopNav from '@/components/top-nav.vue'
-
+import Search from '@/components/search.vue'
 export default {
   name: 'demands-list',
   data () {
     return {
+      isShowSearch: false
     }
   },
   components: {
-    TopNav
+    TopNav,
+    Search
   },
   methods: {
     linkNav (index) {
       this.$router.push({
         path: '/demandsDetail'
       })
+    },
+    handShowSearch () {
+      this.isShowSearch = !this.isShowSearch
+    },
+    clickSearch () {
+      console.log('clickSearch')
     }
   }
 }

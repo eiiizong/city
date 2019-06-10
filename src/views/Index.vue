@@ -1,41 +1,24 @@
 <template>
-  <div class="home">
-    <div class="img-wrapper">
-      <img src="../assets/img/logo-big@2x.png"
-           alt="logo">
-    </div>
-    <ul>
-      <li class="common">
-        <div class="img-wrapper">
-          <img src="../assets/img/img-01.jpg"
+  <div class="index">
+    <router-link to="/home"
+                 tag="li">
+      <div class="title">
+        <div class="left">
+          <i class="icon"></i>
+          <span>城市机会</span>
+        </div>
+        <div class="right">
+          <img src="../assets/img/logo-big@2x.png"
                alt="">
         </div>
-        <div class="info">
-          <p><span>成都</span><span>Chengdu</span></p>
-          <div class="btn-wrapper">
-            <router-link to="/demandsList">
-              <span class="bg"></span>
-              <span>点击进入</span>
-            </router-link>
-          </div>
-        </div>
-      </li>
-      <li class="reverse">
-        <div class="img-wrapper">
-          <img src="../assets/img/img-01.jpg"
-               alt="">
-        </div>
-        <div class="info">
-          <p><span>成都</span><span>Chengdu</span></p>
-          <div class="btn-wrapper">
-            <router-link to="/demandsList">
-              <span class="bg"></span>
-              <span>点击进入</span>
-            </router-link>
-          </div>
-        </div>
-      </li>
-    </ul>
+      </div>
+      <div class="content">
+        <p>在全国率先提出应用场景理论，着力构建与新经济发展高度契合的“七大应用场景”，通过场景供给培育新技术、新模式落地的应用市场，为新经济企业提供入口机会，为广大市民提供情景体验。</p>
+        <p>机会是应用场景的源泉和基础，应用场景则是城市机会在生产生活、城市治理等领域的具体化表现。为厚植新经济发展的市场沃土，推动产业扶持、企业发展从“给优惠”向“给机会”转变，让场景具象成为可感知、可视化、可参与的城市机会，我们在全国首创性提出“城市机会清单”</p>
+        <img src="../assets/img/index-01.jpg"
+             alt="">
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -44,7 +27,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'home',
+  name: 'index',
   components: {
   }
 }
@@ -53,96 +36,50 @@ export default {
 <style lang="scss" scoped>
 @import "../static/style/variable.scss";
 
-.home {
+.index {
   width: 100%;
   background: url(../assets/img/bg.jpg) no-repeat left bottom;
-  background-size: cover;
+  background-size: 100% 100%;
   color: #fff;
-  .img-wrapper {
-    width: 100%;
-    text-align: center;
-    padding: $scss_244px $scss_138px $scss_170px;
-    img {
-      width: 100%;
+  font-size: $scss_28px;
+  line-height: $scss_42px;
+  padding: 0 $scss_56px;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: $scss_152px;
+    padding-bottom: $scss_34px;
+    .left {
+      display: flex;
+      align-items: center;
+      .icon {
+        width: $scss_30px;
+        height: $scss_30px;
+        background-image: url(../assets/img/icon-deng@2x.png);
+        background-size: 100% 100%;
+      }
+      span {
+        font-size: $scss_56px;
+        line-height: 1;
+        padding-left: $scss_14px;
+        font-weight: 700;
+      }
+    }
+    .right {
+      width: $scss_130px;
+      img {
+        width: 100%;
+      }
     }
   }
-  ul {
-    padding: 0 $scss_104px 0 $scss_80px;
-    li {
+  .content {
+    p {
+      text-indent: 2em;
+    }
+    img {
+      padding-top: $scss_40px;
       width: 100%;
-      min-height: $scss_200px;
-      border: 1px solid #fff;
-      margin-bottom: $scss_94px;
-      position: relative;
-      .img-wrapper {
-        padding: 0;
-        width: $scss_214px;
-        height: $scss_214px;
-        position: absolute;
-        top: -$scss_54px;
-      }
-      .info {
-        padding-left: $scss_320px;
-        p {
-          font-size: $scss_24px;
-          line-height: 1;
-          display: flex;
-          align-items: flex-end;
-          padding-top: $scss_28px;
-          padding-bottom: $scss_34px;
-          span {
-            &:first-child {
-              margin-right: $scss_10px;
-              font-size: $scss_36px;
-              font-weight: 700;
-            }
-          }
-        }
-        .btn-wrapper {
-          a {
-            position: relative;
-            width: $scss_118px;
-            height: $scss_40px;
-            span {
-              display: block;
-              width: $scss_118px;
-              height: $scss_40px;
-              background-color: #008ed5;
-              border-radius: $scss_5px;
-              border: solid 1px #fff;
-              font-size: $scss_22px;
-              line-height: $scss_40px;
-              color: #fff;
-              text-align: center;
-              position: absolute;
-              top: -$scss_40px;
-              left: 0;
-              &.bg {
-                position: relative;
-                background-color: #20f0ec;
-                top: $scss_3px;
-                left: $scss_3px;
-              }
-            }
-          }
-        }
-      }
-      &:last-child {
-        margin-bottom: 0;
-      }
-      &.common {
-        .img-wrapper {
-          left: $scss_38px;
-        }
-      }
-      &.reverse {
-        .img-wrapper {
-          right: $scss_38px;
-        }
-        .info {
-          padding-left: $scss_38px;
-        }
-      }
     }
   }
 }

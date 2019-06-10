@@ -1,6 +1,7 @@
 <template>
   <div class="search">
-    <div class="input-wrapper">
+    <div class="input-wrapper"
+         v-if="isHasInputSearch">
       <input type="text"
              placeholder="产品需求">
       <button>搜索</button>
@@ -30,7 +31,7 @@
       </div>
     </div>
     <div class="btn-wrapper">
-      <button>搜索</button>
+      <button @click="$emit('clickSearch')">搜索</button>
     </div>
   </div>
 </template>
@@ -39,6 +40,10 @@
 export default {
   name: 'search',
   props: {
+    isHasInputSearch: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>
@@ -85,9 +90,10 @@ export default {
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
+  padding: 0 $scss_5px;
   label {
     margin-top: $scss_30px;
-    padding: 0 $scss_30px;
+    padding: 0 $scss_25px;
     input {
       display: none;
     }

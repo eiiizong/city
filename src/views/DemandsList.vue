@@ -40,7 +40,8 @@
     </div>
 
     <div v-if="isShowSearch">
-      <Search />
+      <Search @clickSearch="clickSearch"
+              :isHasInputSearch="false" />
     </div>
   </div>
 </template>
@@ -120,6 +121,9 @@ export default {
           desc: '共30项'
         }
       ]
+    },
+    clickSearch () {
+      console.log('clickSearch')
     }
   }
 }

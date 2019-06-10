@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Index from './views/Index.vue'
+import Home from './views/Home.vue'
 import DemandsList from './views/DemandsList.vue'
 import Choice from './views/Choice.vue'
 import DemandsDetail from './views/DemandsDetail.vue'
@@ -16,7 +17,15 @@ export default new Router({
       name: 'index',
       component: Index,
       meta: {
-        title: '首页'
+        title: 'Index'
+      }
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Home,
+      meta: {
+        title: 'Home'
       }
     },
     {
@@ -24,7 +33,7 @@ export default new Router({
       name: 'demandsList',
       component: DemandsList,
       meta: {
-        title: '首页'
+        title: 'DemandsList'
       }
     },
     {
@@ -32,7 +41,7 @@ export default new Router({
       name: 'demandsTypeList',
       component: DemandsTypeList,
       meta: {
-        title: '首页'
+        title: 'DemandsTypeList'
       }
     },
     {
@@ -40,7 +49,7 @@ export default new Router({
       name: 'demandsDetail',
       component: DemandsDetail,
       meta: {
-        title: '首页'
+        title: 'DemandsDetail'
       }
     },
     {
@@ -48,7 +57,7 @@ export default new Router({
       name: 'choice',
       component: Choice,
       meta: {
-        title: '选择'
+        title: 'Choice'
       }
     }
   ]

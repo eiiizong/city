@@ -47,7 +47,13 @@ export default {
   justify-content: space-between;
   padding: 0 $scss_30px;
   align-items: center;
-
+  .left {
+    cursor: pointer;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+  }
   .icon {
     display: block;
     background-image: url(../assets/img/icon-back@2x.png);
@@ -59,18 +65,16 @@ export default {
     height: $scss_32px;
     background-image: url(../assets/img/icon-back@2x.png);
   }
-  .left {
-    cursor: pointer;
+  .icon-filtrate {
+    width: $scss_32px;
+    height: $scss_32px;
+    background-image: url(../assets/img/icon-filtrate@2x.png);
+    margin-right: 5px;
   }
-  .right {
-    display: flex;
-    align-items: center;
-    .icon-filtrate {
-      width: $scss_32px;
-      height: $scss_32px;
-      background-image: url(../assets/img/icon-filtrate@2x.png);
-      margin-right: 5px;
-    }
+  .icon-search {
+    width: $scss_42px;
+    height: $scss_42px;
+    background-image: url(../assets/img/icon-search@2x.png);
   }
 }
 </style>
