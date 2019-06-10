@@ -13,7 +13,7 @@
         <div class="info">
           <p><span>成都</span><span>Chengdu</span></p>
           <div class="btn-wrapper">
-            <router-link to="/choice">
+            <router-link to="/demandsList">
               <span class="bg"></span>
               <span>点击进入</span>
             </router-link>
@@ -28,7 +28,7 @@
         <div class="info">
           <p><span>成都</span><span>Chengdu</span></p>
           <div class="btn-wrapper">
-            <router-link to="/choice">
+            <router-link to="/demandsList">
               <span class="bg"></span>
               <span>点击进入</span>
             </router-link>

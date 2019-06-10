@@ -85,10 +85,9 @@ export default {
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  padding-left: $scss_30px;
   label {
     margin-top: $scss_30px;
-    margin-right: $scss_50px;
+    padding: 0 $scss_30px;
     input {
       display: none;
     }
@@ -101,6 +100,7 @@ export default {
       color: #646464;
       border: 1px solid #edeff2;
       padding: 0 $scss_10px;
+      transition: all 0.3s;
     }
     input {
       &:checked ~ span {

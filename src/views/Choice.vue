@@ -6,8 +6,9 @@
       <div class="list">
         <ul>
           <li v-for="(item, index) in cardData"
-              :key="index">
+              :key="item.id">
             <Card className="big"
+                  @click="clickNav(index)"
                   :data="item" />
           </li>
         </ul>
@@ -33,7 +34,7 @@ export default {
           desc: 'Translate'
         },
         {
-          id: 1,
+          id: 2,
           iconClassName: '',
           title: '政府',
           desc: 'Government'
@@ -44,6 +45,13 @@ export default {
   components: {
     TopNav,
     Card
+  },
+  methods: {
+    clickNav (index) {
+      this.$router.push({
+        path: '/demandsTypeList'
+      })
+    }
   }
 }
 </script>

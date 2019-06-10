@@ -4,6 +4,7 @@
     <div class="content">
       <ul>
         <li v-for="(item, index) in 6"
+            @click="linkNav(index)"
             :key="index">
           <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
           <div class="name">
@@ -28,6 +29,13 @@ export default {
   },
   components: {
     TopNav
+  },
+  methods: {
+    linkNav (index) {
+      this.$router.push({
+        path: '/demandsDetail'
+      })
+    }
   }
 }
 </script>

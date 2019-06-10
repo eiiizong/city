@@ -1,5 +1,6 @@
 <template>
   <div class="card"
+       @click="$emit('click')"
        v-if="data"
        :class="className?className:''">
     <div class="border-bg"></div>

@@ -1,37 +1,47 @@
 <template>
   <div class="demands-list">
-    <TopNav />
+    <TopNav :iconClassName="isShowSearch?'':'icon-filtrate'"
+            :rightText="isShowSearch?'关闭':'筛选'"
+            @click="showSearch" />
     <div class="content">
-      <div class="img-wrapper">
-        <img src="../assets/img/logo-big@2x.png"
-             alt="logo">
-      </div>
-      <div class="nav">
-        <ul>
-          <li class="">
-            <a href="#">
-              <span class="bg"></span>
-              <span>需求清单(10)</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="#">
-              <span class="bg"></span>
-              <span>供给清单(5)</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="list">
-        <ul>
-          <li v-for="(item, index) in 16"
-              :key="index">
-            <Card />
-          </li>
-        </ul>
+      <div v-show="!isShowSearch">
+        <div class="img-wrapper">
+          <img src="../assets/img/logo-big@2x.png"
+               alt="logo">
+        </div>
+        <div class="nav">
+          <ul>
+            <li :class="navIndex===0?'active':''">
+              <div class="link"
+                   @click.stop="clickNavDemandsList">
+                <span class="bg"></span>
+                <span>需求清单(10)</span>
+              </div>
+            </li>
+            <li :class="navIndex===1?'active':''">
+              <div class="link"
+                   @click.stop="clickNavGetsList">
+                <span class="bg"></span>
+                <span>供给清单(5)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="list">
+          <ul>
+            <li v-for="(item, index) in cardData"
+                :key="item.id">
+              <Card :data="item"
+                    @click="linkNav(index)" />
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <Search />
+
+    <div v-if="isShowSearch">
+      <Search />
+    </div>
   </div>
 </template>
 
@@ -43,10 +53,74 @@ import Search from '@/components/search.vue'
 
 export default {
   name: 'demands-list',
+  data () {
+    return {
+      cardData: [
+        {
+          id: 0,
+          title: '服务实体经济',
+          desc: '共35项'
+        },
+        {
+          id: 1,
+          title: '服务实体经济',
+          desc: '共35项'
+        }
+      ],
+      isShowSearch: false,
+      navIndex: 0
+    }
+  },
   components: {
     TopNav,
     Card,
     Search
+  },
+  methods: {
+    showSearch () {
+      this.isShowSearch = !this.isShowSearch
+    },
+    linkNav (index) {
+      console.log(index)
+      this.$router.push({
+        path: '/choice'
+      })
+    },
+    clickNavDemandsList () {
+      this.navIndex = 0
+      this.cardData = [
+        {
+          id: 0,
+          title: '服务实体经济',
+          desc: '共35项'
+        },
+        {
+          id: 1,
+          title: '服务实体经济',
+          desc: '共35项'
+        }
+      ]
+    },
+    clickNavGetsList () {
+      this.navIndex = 1
+      this.cardData = [
+        {
+          id: 0,
+          title: '服务实体经济',
+          desc: '共30项'
+        },
+        {
+          id: 1,
+          title: '服务实体经济',
+          desc: '共30项'
+        },
+        {
+          id: 2,
+          title: '服务实体经济',
+          desc: '共30项'
+        }
+      ]
+    }
   }
 }
 </script>
@@ -81,7 +155,7 @@ export default {
         display: flex;
         justify-content: space-between;
         li {
-          a {
+          .link {
             position: relative;
             width: $scss_286px;
             height: $scss_70px;
@@ -98,7 +172,7 @@ export default {
               color: #fff;
               text-align: center;
               position: absolute;
-              top: -$scss_70px;
+              top: 0;
               left: 0;
               opacity: 0.5;
               &.bg {
@@ -110,7 +184,7 @@ export default {
             }
           }
           &.active {
-            a {
+            .link {
               span {
                 opacity: 1;
                 font-weight: 700;

@@ -45,7 +45,7 @@ export default {
   line-height: 1;
   font-weight: 500;
   justify-content: space-between;
-  padding: $scss_76px $scss_30px 0;
+  padding: 0 $scss_30px;
   align-items: center;
 
   .icon {

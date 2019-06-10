@@ -1,6 +1,7 @@
 <template>
   <div class="demands-detail">
     <TopNav iconClassName="icon-backMenu"
+            @click="backToMenu"
             rightText="回到目录" />
     <div class="content">
       <div class="top">
@@ -72,6 +73,13 @@ export default {
   },
   components: {
     TopNav
+  },
+  methods: {
+    backToMenu () {
+      this.$router.push({
+        path: '/'
+      })
+    }
   }
 }
 </script>
