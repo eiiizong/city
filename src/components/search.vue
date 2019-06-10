@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <div class="search animated slideInDown">
     <div class="input-wrapper"
          v-if="isHasInputSearch">
       <input type="text"

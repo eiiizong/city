@@ -1,41 +1,78 @@
 <template>
   <div class="home">
-    <div class="img-wrapper">
-      <img src="../assets/img/logo-big@2x.png"
-           alt="logo">
-    </div>
-    <ul>
-      <li class="common">
-        <div class="img-wrapper">
-          <img src="../assets/img/img-01.jpg"
-               alt="">
-        </div>
-        <div class="info">
-          <p><span>成都</span><span>Chengdu</span></p>
-          <div class="btn-wrapper">
-            <router-link to="/demandsList">
-              <span class="bg"></span>
-              <span>点击进入</span>
-            </router-link>
-          </div>
-        </div>
-      </li>
-      <li class="reverse">
-        <div class="img-wrapper">
-          <img src="../assets/img/img-01.jpg"
-               alt="">
-        </div>
-        <div class="info">
-          <p><span>成都</span><span>Chengdu</span></p>
-          <div class="btn-wrapper">
-            <router-link to="/demandsList">
-              <span class="bg"></span>
-              <span>点击进入</span>
-            </router-link>
-          </div>
-        </div>
-      </li>
-    </ul>
+    <transition v-if="showLogo">
+      <div class="img-wrapper animated wobble rollIn">
+        <img src="../assets/img/logo-big@2x.png"
+             alt="logo">
+      </div>
+    </transition>
+
+    <transition v-if="showNav">
+      <div class="content">
+        <ul>
+          <li class="common animated wobble rollIn">
+            <div class="img-wrapper animated wobble rollIn">
+              <img src="../assets/img/city/chengdu.jpg"
+                   alt="">
+            </div>
+            <div class="info">
+              <p><span>成都</span><span>Chengdu</span></p>
+              <div class="btn-wrapper">
+                <router-link to="/demandsList">
+                  <span class="bg"></span>
+                  <span>点击进入</span>
+                </router-link>
+              </div>
+            </div>
+          </li>
+          <li class="reverse animated wobble rollIn">
+            <div class="img-wrapper animated wobble rollIn">
+              <img src="../assets/img/city/deyang.jpg"
+                   alt="">
+            </div>
+            <div class="info">
+              <p><span>德阳</span><span>Deyang</span></p>
+              <div class="btn-wrapper">
+                <router-link to="/demandsList">
+                  <span class="bg"></span>
+                  <span>点击进入</span>
+                </router-link>
+              </div>
+            </div>
+          </li>
+          <li class="common animated wobble rollIn">
+            <div class="img-wrapper animated wobble rollIn">
+              <img src="../assets/img/city/deyang.jpg"
+                   alt="">
+            </div>
+            <div class="info">
+              <p><span>德阳</span><span>Deyang</span></p>
+              <div class="btn-wrapper">
+                <router-link to="/demandsList">
+                  <span class="bg"></span>
+                  <span>点击进入</span>
+                </router-link>
+              </div>
+            </div>
+          </li>
+          <li class="reverse animated wobble rollIn">
+            <div class="img-wrapper animated wobble rollIn">
+              <img src="../assets/img/city/deyang.jpg"
+                   alt="">
+            </div>
+            <div class="info">
+              <p><span>德阳</span><span>Deyang</span></p>
+              <div class="btn-wrapper">
+                <router-link to="/demandsList">
+                  <span class="bg"></span>
+                  <span>点击进入</span>
+                </router-link>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -45,6 +82,20 @@
 
 export default {
   name: 'home',
+  data () {
+    return {
+      showLogo: false,
+      showNav: false
+    }
+  },
+  created () {
+    setTimeout(() => {
+      this.showLogo = true
+    }, 0)
+    setTimeout(() => {
+      this.showNav = true
+    }, 1000)
+  },
   components: {
   }
 }
@@ -55,19 +106,28 @@ export default {
 
 .home {
   width: 100%;
+  height: 100%;
   background: url(../assets/img/bg.jpg) no-repeat left bottom;
   background-size: cover;
   color: #fff;
+  display: flex;
+  flex-direction: column;
   .img-wrapper {
     width: 100%;
     text-align: center;
-    padding: $scss_244px $scss_138px $scss_170px;
+    padding: $scss_100px $scss_138px;
     img {
       width: 100%;
     }
   }
+  .content {
+    flex: 1;
+    overflow: hidden;
+  }
   ul {
-    padding: 0 $scss_104px 0 $scss_80px;
+    height: 100%;
+    overflow: auto;
+    padding: $scss_70px $scss_104px $scss_70px $scss_80px;
     li {
       width: 100%;
       min-height: $scss_200px;

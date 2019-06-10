@@ -79,15 +79,6 @@ export default {
       }
     }
   }
-  .icon {
-    display: block;
-    width: $scss_76px;
-    height: $scss_80px;
-    background-image: url(../assets/img/icon-kjcxcy@2x.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    border-radius: 50%;
-  }
   &.big {
     width: 100%;
     height: $scss_218px;
@@ -112,6 +103,15 @@ export default {
         }
       }
     }
+  }
+  .icon {
+    display: block;
+    width: $scss_76px;
+    height: $scss_80px;
+    background-image: url(../assets/img/icon-kjcxcy@2x.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 50%;
   }
 }
 </style>

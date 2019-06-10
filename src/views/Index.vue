@@ -2,8 +2,7 @@
   <div class="index">
     <router-link to="/home"
                  tag="li">
-      <transition class="animated shake"
-                  v-if="titleShow">
+      <transition v-if="titleShow">
         <div class="title">
           <div class="left animated fadeInLeft"
                animate-delay="0s"
@@ -38,9 +37,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'index',
   data () {
@@ -65,19 +61,17 @@ export default {
     }, 2000)
     setTimeout(() => {
       this.imgShow = true
-    }, 13000)
+    }, 12000)
   },
   methods: {
     textAuto () {
-      const _this = this;
+      const _this = this
       const text1 = '本次发布的城市机会清单运用场景逻辑梳理整合成都以及国际友城、兄弟城市的发展机遇，激励引导优秀企业在经济全球化进程中实现价值、赢得发展。本批次城市机会清单注重打造应用场景，促进示范推广；注重完善对接机制，强化精准服务；注重链接全球发展，服务对外开放；注重突出“主干”作用，推动区域协同。与第一批机会清单相比，本批次城市机会清单实现了“两个扩容”，一是题材范围扩容，不仅新增了成都特色的东部新城专题，还聚合展示了国际城市（地区）、省内兄弟城市的城市发展机会；二是供需信息扩容，本次共发布764条供需信息、较第一批增加314条，新增企业协作、市场推广等5方面内容。其中，成都城市机会清单涉及服务实体经济、乡村振兴、智慧城市、东部新城等11个应用场景共651条供需信息；德阳、眉山、资阳3个省内兄弟城市共发布74条供需信息；20个国际城市（地区）共发布39条供需信息。'
       const text2 = '成都将以更加开放包容的姿态走向时代前沿，致力于把城市机会清单塑造成为国际化、多元化、平台化的城市品牌，链接全球发展机遇、深化城市交流合作、促进企业创新发展，奋力建设面向世界的城市机会集散地和新经济创新策源地，打造共建人类命运共同体的合作交流高地。'
       const arr1 = text1.split('')
       const arr2 = text2.split('')
       let len1 = text1.length
       let len2 = text2.length
-      console.log(len1)
-      console.log(len2)
       let i = 0
       let j = 0
       let timer = null
@@ -93,9 +87,7 @@ export default {
           _this.textOne += arr1[i++]
         }
       }, 20)
-
     }
-
   }
 }
 </script>
@@ -105,6 +97,7 @@ export default {
 
 .index {
   width: 100%;
+  min-height: 100%;
   background: url(../assets/img/bg.jpg) no-repeat left bottom;
   background-size: 100% 100%;
   color: #fff;

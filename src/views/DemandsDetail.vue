@@ -3,33 +3,37 @@
     <TopNav iconClassName="icon-backMenu"
             @click="backToMenu"
             rightText="回到目录" />
+
     <div class="content">
-      <div class="top">
-        <img src="../assets/img/detail-bg.jpg"
-             alt="logo">
-        <div class="info">
-          <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
-          <div class="name">
-            <span class="tag">融资需求</span>
-            <span>成都国民沃成半导体有限公司</span>
+      <transition>
+        <div class="top">
+          <img src="../assets/img/detail-bg.jpg"
+               alt="logo">
+          <div class="info">
+            <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
+            <div class="name">
+              <span class="tag">融资需求</span>
+              <span>成都国民沃成半导体有限公司</span>
+            </div>
           </div>
         </div>
-      </div>
+      </transition>
 
-      <div class="main">
-        <ul>
-          <li v-for="item in detailData"
-              :key="item.id">
-            <div class="left">【{{item.title}}】</div>
-            <div class="right">
-              <span>{{item.desc}}</span>
-              <span v-if="item.contact">{{item.contact}}</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <transition>
+        <div class="main">
+          <ul>
+            <li v-for="item in detailData"
+                :key="item.id">
+              <div class="left">【{{item.title}}】</div>
+              <div class="right">
+                <span>{{item.desc}}</span>
+                <span v-if="item.contact">{{item.contact}}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
-    <Search />
   </div>
 </template>
 

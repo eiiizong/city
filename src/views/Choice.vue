@@ -2,17 +2,19 @@
   <div class="choice">
     <TopNav />
     <div class="content">
-
-      <div class="list">
-        <ul>
-          <li v-for="(item, index) in cardData"
-              :key="item.id">
-            <Card className="big"
-                  @click="clickNav(index)"
-                  :data="item" />
-          </li>
-        </ul>
-      </div>
+      <transition v-if="showNav">
+        <div class="list">
+          <ul>
+            <li v-for="(item, index) in cardData"
+                class="animated rollIn rollout"
+                :key="item.id">
+              <Card className="big"
+                    @click="clickNav(index)"
+                    :data="item" />
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -26,16 +28,17 @@ export default {
   name: 'chioce',
   data () {
     return {
+      showNav: false,
       cardData: [
         {
           id: 1,
-          iconClassName: '',
+          iconClassName: 'icon-enterprise',
           title: '企业',
           desc: 'Translate'
         },
         {
           id: 2,
-          iconClassName: '',
+          iconClassName: 'icon-government',
           title: '政府',
           desc: 'Government'
         }
@@ -45,6 +48,11 @@ export default {
   components: {
     TopNav,
     Card
+  },
+  created () {
+    setTimeout(() => {
+      this.showNav = true
+    }, 0)
   },
   methods: {
     clickNav (index) {

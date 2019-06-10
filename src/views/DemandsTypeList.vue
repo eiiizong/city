@@ -2,23 +2,30 @@
   <div class="demands-type-list">
     <TopNav :iconClassName="isShowSearch?'':'icon-search'"
             @click="handShowSearch" />
-    <div class="content">
-      <ul v-show="!isShowSearch">
-        <li v-for="(item, index) in 6"
-            @click="linkNav(index)"
-            :key="index">
-          <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
-          <div class="name">
-            <span class="tag">融资需求</span>
-            <span>成都国民沃成半导体有限公司</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div v-show="isShowSearch">
-      <Search @clickSearch="clickSearch"
-              :isHasInputSearch="true" />
-    </div>
+    <transition v-if="showList">
+      <div class="content">
+        <ul v-show="!isShowSearch">
+          <li v-for="(item, index) in 6"
+              @click="linkNav(index)"
+              class="animated bounceInLeft"
+              :key="index">
+            <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
+            <div class="name">
+              <span class="tag">融资需求</span>
+              <span>成都国民沃成半导体有限公司</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </transition>
+
+    <transition v-if="showSearch">
+      <div v-show="isShowSearch">
+        <Search @clickSearch="clickSearch"
+                :isHasInputSearch="true" />
+      </div>
+    </transition>
+
   </div>
 </template>
 
@@ -30,12 +37,22 @@ export default {
   name: 'demands-list',
   data () {
     return {
+      showSearch: false,
+      showList: false,
       isShowSearch: false
     }
   },
   components: {
     TopNav,
     Search
+  },
+  created () {
+    setTimeout(() => {
+      this.showSearch = true
+    }, 0)
+    setTimeout(() => {
+      this.showList = true
+    }, 0)
   },
   methods: {
     linkNav (index) {
