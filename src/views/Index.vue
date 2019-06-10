@@ -2,21 +2,36 @@
   <div class="index">
     <router-link to="/home"
                  tag="li">
-      <div class="title">
-        <div class="left">
-          <i class="icon"></i>
-          <span>城市机会</span>
+      <transition class="animated shake"
+                  v-if="titleShow">
+        <div class="title">
+          <div class="left animated fadeInLeft"
+               animate-delay="0s"
+               animate-duration="10s">
+            <i class="icon"></i>
+            <span>城市机会</span>
+          </div>
+          <div class="right animated fadeInRight"
+               animate-delay="2s"
+               animate-duration="2s">
+            <img src="../assets/img/logo-big@2x.png"
+                 alt="">
+          </div>
         </div>
-        <div class="right">
-          <img src="../assets/img/logo-big@2x.png"
-               alt="">
-        </div>
-      </div>
+      </transition>
+
       <div class="content">
-        <p>在全国率先提出应用场景理论，着力构建与新经济发展高度契合的“七大应用场景”，通过场景供给培育新技术、新模式落地的应用市场，为新经济企业提供入口机会，为广大市民提供情景体验。</p>
-        <p>机会是应用场景的源泉和基础，应用场景则是城市机会在生产生活、城市治理等领域的具体化表现。为厚植新经济发展的市场沃土，推动产业扶持、企业发展从“给优惠”向“给机会”转变，让场景具象成为可感知、可视化、可参与的城市机会，我们在全国首创性提出“城市机会清单”</p>
-        <img src="../assets/img/index-01.jpg"
-             alt="">
+        <transition v-if="textShow">
+          <div>
+            <p>{{textOne}}</p>
+            <p>{{textTwo}}</p>
+          </div>
+        </transition>
+        <transition v-if="imgShow">
+          <img src="../assets/img/index-01.jpg"
+               class="animated rollIn fadeIn"
+               alt="">
+        </transition>
       </div>
     </router-link>
   </div>
@@ -28,7 +43,59 @@
 
 export default {
   name: 'index',
+  data () {
+    return {
+      titleShow: false,
+      textShow: false,
+      imgShow: false,
+      textOne: '',
+      textTwo: ''
+    }
+  },
   components: {
+  },
+  created () {
+    console.log(new Date().getTime())
+    setTimeout(() => {
+      this.titleShow = true
+    }, 500)
+    setTimeout(() => {
+      this.textShow = true
+      this.textAuto()
+    }, 2000)
+    setTimeout(() => {
+      this.imgShow = true
+    }, 13000)
+  },
+  methods: {
+    textAuto () {
+      const _this = this;
+      const text1 = '本次发布的城市机会清单运用场景逻辑梳理整合成都以及国际友城、兄弟城市的发展机遇，激励引导优秀企业在经济全球化进程中实现价值、赢得发展。本批次城市机会清单注重打造应用场景，促进示范推广；注重完善对接机制，强化精准服务；注重链接全球发展，服务对外开放；注重突出“主干”作用，推动区域协同。与第一批机会清单相比，本批次城市机会清单实现了“两个扩容”，一是题材范围扩容，不仅新增了成都特色的东部新城专题，还聚合展示了国际城市（地区）、省内兄弟城市的城市发展机会；二是供需信息扩容，本次共发布764条供需信息、较第一批增加314条，新增企业协作、市场推广等5方面内容。其中，成都城市机会清单涉及服务实体经济、乡村振兴、智慧城市、东部新城等11个应用场景共651条供需信息；德阳、眉山、资阳3个省内兄弟城市共发布74条供需信息；20个国际城市（地区）共发布39条供需信息。'
+      const text2 = '成都将以更加开放包容的姿态走向时代前沿，致力于把城市机会清单塑造成为国际化、多元化、平台化的城市品牌，链接全球发展机遇、深化城市交流合作、促进企业创新发展，奋力建设面向世界的城市机会集散地和新经济创新策源地，打造共建人类命运共同体的合作交流高地。'
+      const arr1 = text1.split('')
+      const arr2 = text2.split('')
+      let len1 = text1.length
+      let len2 = text2.length
+      console.log(len1)
+      console.log(len2)
+      let i = 0
+      let j = 0
+      let timer = null
+      timer = setInterval(() => {
+        if (i >= len1) {
+          if (j >= len2) {
+            clearInterval(timer)
+            console.log(new Date().getTime())
+          } else {
+            _this.textTwo += arr2[j++]
+          }
+        } else {
+          _this.textOne += arr1[i++]
+        }
+      }, 20)
+
+    }
+
   }
 }
 </script>
@@ -41,15 +108,15 @@ export default {
   background: url(../assets/img/bg.jpg) no-repeat left bottom;
   background-size: 100% 100%;
   color: #fff;
-  font-size: $scss_28px;
-  line-height: $scss_42px;
+  font-size: $scss_24px;
+  line-height: $scss_36px;
   padding: 0 $scss_56px;
   .title {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-top: $scss_152px;
-    padding-bottom: $scss_34px;
+    padding-top: $scss_72px;
+    padding-bottom: $scss_30px;
     .left {
       display: flex;
       align-items: center;
@@ -78,7 +145,7 @@ export default {
       text-indent: 2em;
     }
     img {
-      padding-top: $scss_40px;
+      padding-top: $scss_30px;
       width: 100%;
     }
   }
