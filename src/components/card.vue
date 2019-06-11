@@ -7,7 +7,11 @@
     <div class="content">
       <div class="left">
         <img :src="data.img"
-             :alt="data.cate">
+             v-if="!iconClassName"
+             alt="">
+        <i class="icon"
+           :class="iconClassName?iconClassName:''"
+           v-if="iconClassName"></i>
       </div>
       <div class="right">
         <p>{{data.cate}}</p>
@@ -21,6 +25,10 @@
 export default {
   name: 'card',
   props: {
+    iconClassName: {
+      type: String,
+      default: ''
+    },
     className: {
       type: String,
       default: ''
@@ -71,6 +79,17 @@ export default {
       margin-top: -$scss_8px;
       img {
         width: $scss_76px;
+      }
+      .icon {
+        display: block;
+        width: $scss_76px;
+        height: $scss_76px;
+      }
+      .icon-enterprise {
+        width: $scss_90px;
+        height: $scss_84px;
+        background-image: url(../assets/img/icon-business@2x.png);
+        background-size: 100% 100%;
       }
     }
     .right {

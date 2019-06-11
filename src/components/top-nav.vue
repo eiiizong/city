@@ -42,7 +42,6 @@ export default {
   height: $scss_top-nav-height;
   color: #000;
   font-size: $scss_32px;
-  line-height: 1;
   font-weight: 500;
   justify-content: space-between;
   padding: 0 $scss_30px;

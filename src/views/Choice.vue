@@ -5,12 +5,17 @@
       <transition v-if="showNav">
         <div class="list">
           <ul>
-            <li v-for="(item, index) in cardData"
-                class="animated rollIn rollout"
-                :key="item.id">
-              <Card className="big"
-                    @click="clickNav(index)"
-                    :data="item" />
+            <li class="animated rollIn rollout">
+              <router-link :to="{path: '/demandsTypeList', query: {nature: '1',city_name:'成都市',cate: cate }}">
+                <img src="../assets/img/qy@2x.png"
+                     alt="">
+              </router-link>
+            </li>
+            <li class="animated rollIn rollout">
+              <router-link :to="{path: '/demandsTypeList', query: {nature: '2',city_name:'成都市',cate: cate  }}">
+                <img src="../assets/img/zf@2x.png"
+                     alt="">
+              </router-link>
             </li>
           </ul>
         </div>
@@ -22,7 +27,7 @@
 <script>
 // @ is an alias to /src
 import TopNav from '@/components/top-nav.vue'
-import Card from '@/components/card.vue'
+// import Card from '@/components/card.vue'
 
 export default {
   name: 'chioce',
@@ -33,33 +38,31 @@ export default {
         {
           id: 1,
           iconClassName: 'icon-enterprise',
-          title: '企业',
-          desc: 'Translate'
+          cate: '企业',
+          cnt: 'Translate'
         },
         {
           id: 2,
-          iconClassName: 'icon-government',
+          cate: 'icon-government',
           title: '政府',
-          desc: 'Government'
+          cnt: 'Government'
         }
-      ]
+      ],
+      cate: ''
     }
   },
   components: {
-    TopNav,
-    Card
+    TopNav
   },
   created () {
+    const cate = this.$route.query.cate
+    this.cate = cate
+    console.log(cate)
     setTimeout(() => {
       this.showNav = true
     }, 0)
   },
   methods: {
-    clickNav (index) {
-      this.$router.push({
-        path: '/demandsTypeList'
-      })
-    }
   }
 }
 </script>

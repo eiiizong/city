@@ -48,7 +48,6 @@ export default {
     .content {
       width: 100%;
       height: 100%;
-      // display: flex;
       padding-top: $scss_420px;
       justify-content: center;
       flex-wrap: wrap;
@@ -69,7 +68,7 @@ export default {
     display: flex;
   }
   img {
-    width: $scss_384px;
+    width: $scss_200px;
     margin: auto;
   }
   button {

@@ -48,7 +48,8 @@
       </div>
     </div>
 
-    <transition v-if="showSearch">
+    <transition v-if="showSearch"
+                leave-active-class="animated slideOutUp">
       <div v-if="isShowSearch"
            class="search-wrapper animated slideInDown">
         <TopNav @click="handleShowSearch"
@@ -78,24 +79,6 @@
                 </label>
               </div>
             </div>
-            <!-- 类别 -->
-            <div class="item"
-                 v-if="searchCate">
-              <h3>大分类</h3>
-              <div class="checkbox-group">
-                <label :for="'type' + index"
-                       v-for="(item, index) in searchCate"
-                       :key="index">
-                  <input type="checkbox"
-                         :checked="item.checked"
-                         @change="checkboxChangeCate"
-                         :value="index"
-                         :id="'type' + index">
-                  <span>{{item.name}}</span>
-                </label>
-              </div>
-            </div>
-
             <div class="item"
                  v-if="searchNeeds">
               <h3>需求供给</h3>
@@ -113,7 +96,6 @@
                 </label>
               </div>
             </div>
-
             <div class="item"
                  v-if="searchZF && isShowZFChioce">
               <h3>政府企业</h3>
@@ -126,6 +108,23 @@
                          @change="checkboxChangeZF"
                          :value="index"
                          :id="'zf' + index">
+                  <span>{{item.name}}</span>
+                </label>
+              </div>
+            </div>
+            <!-- 类别 -->
+            <div class="item"
+                 v-if="searchCate">
+              <h3>场景分类</h3>
+              <div class="checkbox-group">
+                <label :for="'type' + index"
+                       v-for="(item, index) in searchCate"
+                       :key="index">
+                  <input type="checkbox"
+                         :checked="item.checked"
+                         @change="checkboxChangeCate"
+                         :value="index"
+                         :id="'type' + index">
                   <span>{{item.name}}</span>
                 </label>
               </div>
@@ -181,9 +180,7 @@
 // @ is an alias to /src
 import TopNav from '@/components/top-nav.vue'
 import Card from '@/components/card.vue'
-
 import MaskPopup from '@/components/mask.vue'
-// import Search from '@/components/search.vue'
 import qs from 'qs'
 
 export default {
@@ -229,7 +226,8 @@ export default {
       city: '',
       searchKeywordStr: '',
       searchCityStr: '',
-      isShowHint: false
+      isShowHint: false,
+      isNeed: false
     }
   },
   components: {
@@ -276,6 +274,7 @@ export default {
         if (res.status === 200 && res.data.status === '200') {
           this.requestData = res.data
           this.cardData = res.data.demand_list
+          this.isNeed = true
         }
       })
     },
@@ -358,7 +357,7 @@ export default {
       }
       this.cityNameStr = cityName
 
-      this.requestSearch(this.cityNameStr, this.cateStr, this.sceneStr)
+      //      this.requestSearch(this.cityNameStr, this.cateStr, this.sceneStr)
     },
     checkboxChangeCate (e) {
       const data = this.searchCate
@@ -438,7 +437,7 @@ export default {
       const keyword = ''
 
       let url = {
-        path: '/choice',
+        path: '/demandsTypeList',
         query: {
           city_name: this.city,
           cate,
@@ -450,18 +449,23 @@ export default {
           keyword
         }
       }
-      if (this.city !== '成都市1') {
-        url.path = '/demandsTypeList'
+      console.log(this.city)
+      console.log(this.navIndex)
+      if (this.city === '成都市' && this.navIndex === 0) {
+
+        url.path = '/choice'
       }
       this.$router.push(url)
     },
     clickNavDemandsList () {
       this.navIndex = 0
       this.cardData = this.requestData.demand_list
+      this.isNeed = true
     },
     clickNavGetsList () {
       this.navIndex = 1
       this.cardData = this.requestData.supply_list
+      this.isNeed = false
     },
     clickSearch () {
       const cate = this.cateStr
@@ -597,7 +601,7 @@ export default {
 }
 .search-wrapper {
   width: 100%;
-  max-height: 80%;
+  max-height: 100%;
   overflow: auto;
   position: fixed;
   top: 0;
@@ -605,6 +609,14 @@ export default {
   z-index: 100;
   display: flex;
   flex-direction: column;
+  .top-nav {
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+  }
 }
 .search {
   flex: 1;
@@ -619,6 +631,9 @@ export default {
     width: 100%;
     flex: 1;
     overflow: auto;
+    padding-top: $scss_top-nav-height;
+    padding-bottom: $scss_100px;
+    position: relative;
   }
   .input-wrapper {
     display: flex;
@@ -678,8 +693,11 @@ export default {
     }
   }
   .btn-wrapper {
-    padding: $scss_46px $scss_192px;
-    height: $scss_92px + $scss_70px;
+    position: absolute;
+    bottom: $scss_40px;
+    left: 0;
+    width: 100%;
+    padding: 0 $scss_140px;
     button {
       width: 100%;
       height: $scss_70px;
