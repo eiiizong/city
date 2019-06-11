@@ -147,7 +147,7 @@ export default {
       const type = ''
       const nature = ''
       const scene = ''
-      const request_type = ''
+      const requestType = ''
       const keyword = ''
 
       let url = {
@@ -159,7 +159,7 @@ export default {
           type,
           nature,
           scene,
-          request_type,
+          'request_type': requestType,
           keyword
         }
       }
@@ -167,7 +167,6 @@ export default {
         url.path = '/demandsTypeList'
       }
       this.$router.push(url)
-
     },
     clickNavDemandsList () {
       this.navIndex = 0

@@ -1,5 +1,6 @@
 <template>
-  <div class="demands-detail">
+  <div class="demands-detail"
+       v-if="newData">
     <TopNav iconClassName="icon-backMenu"
             @click="backToMenu"
             rightText="回到目录" />
@@ -10,10 +11,10 @@
           <img src="../assets/img/detail-bg.jpg"
                alt="logo">
           <div class="info">
-            <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
+            <div class="title">{{detail.name}}</div>
             <div class="name">
-              <span class="tag">融资需求</span>
-              <span>成都国民沃成半导体有限公司</span>
+              <span class="tag">{{detail.request_type}}</span>
+              <span>{{detail.contact_company}}</span>
             </div>
           </div>
         </div>
@@ -22,11 +23,11 @@
       <transition>
         <div class="main">
           <ul>
-            <li v-for="item in detailData"
-                :key="item.id">
-              <div class="left">【{{item.title}}】</div>
+            <li v-for="(item, index) in newData"
+                :key="index">
+              <div class="left">【{{item.name}}】</div>
               <div class="right">
-                <span>{{item.desc}}</span>
+                <span>{{item.value}}</span>
                 <span v-if="item.contact">{{item.contact}}</span>
               </div>
             </li>
@@ -40,6 +41,7 @@
 <script>
 // @ is an alias to /src
 import TopNav from '@/components/top-nav.vue'
+import qs from 'qs'
 
 export default {
   name: 'demands-list',
@@ -72,13 +74,58 @@ export default {
           title: '建设模式',
           desc: '政府和企业出资共建'
         }
-      ]
+      ],
+      filed: {},
+      detail: {},
+      newData: []
     }
+  },
+  created () {
+    this.requestData()
   },
   components: {
     TopNav
   },
   methods: {
+    requestData () {
+      const id = this.$route.query.id
+      const data = {
+        id
+      }
+      const getDetail = () => {
+        return this.axios.post('/list/detail', qs.stringify(data))
+      }
+      const getSystem = () => {
+        return this.axios.post('/list/system')
+      }
+      this.axios.all([getDetail(), getSystem()]).then(this.axios.spread((acct, perms) => {
+        if (acct.status === 200 && acct.data.status === '200') {
+          this.detail = acct.data.info
+        }
+        if (perms.status === 200 && perms.data.status === '200') {
+          this.filed = perms.data.filed
+        }
+        this.initNewData(this.detail, this.filed)
+      }))
+    },
+    initNewData (detail, filed) {
+      const detailAttr = Object.keys(detail)
+      const filedAttr = Object.keys(filed)
+      let arr = []
+      let i = 0
+      for (let detailIndex in detailAttr) {
+        for (let filedIndex in filedAttr) {
+          if (detailAttr[detailIndex] === filedAttr[filedIndex] && detail[detailAttr[detailIndex]] && filed[filedAttr[filedIndex]]) {
+            arr[i++] = {
+              name: filed[filedAttr[filedIndex]],
+              value: detail[detailAttr[detailIndex]]
+            }
+          }
+        }
+      }
+      this.newData = arr
+      console.log(arr)
+    },
     backToMenu () {
       this.$router.push({
         path: '/'
@@ -106,7 +153,7 @@ export default {
     overflow: auto;
     .top {
       position: relative;
-      height: $scss_158px;
+      min-height: $scss_158px;
       img {
         width: 100%;
       }
@@ -154,7 +201,7 @@ export default {
         padding-top: $scss_50px;
         min-height: $scss_132px;
         .left {
-          width: $scss_172px;
+          width: $scss_200px;
         }
         .right {
           flex: 1;

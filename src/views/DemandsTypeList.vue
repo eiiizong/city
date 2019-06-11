@@ -8,12 +8,15 @@
           <li v-for="(item, index) in list"
               @click="linkNav(index)"
               class="animated bounceInLeft"
-              :key="index">
-            <div class="title">郫都区万云汇互联网娱乐云计算产业基地项目</div>
+              :key="item.id">
+            <div class="title">{{item.name}}</div>
             <div class="name">
-              <span class="tag">融资需求</span>
-              <span>成都国民沃成半导体有限公司</span>
+              <span class="tag">{{item.request_type}}</span>
+              <span>{{item.contact_company}}</span>
             </div>
+          </li>
+          <li class="btn-wrapper">
+            <button @click="requestList">点击加载更多</button>
           </li>
         </ul>
       </div>
@@ -42,7 +45,8 @@ export default {
       showSearch: false,
       showList: false,
       isShowSearch: false,
-      list: []
+      list: [],
+      page: 1
     }
   },
   components: {
@@ -58,18 +62,18 @@ export default {
     setTimeout(() => {
       this.showList = true
     }, 0)
-
+  },
+  mounted () {
     this.requestList()
   },
   methods: {
     requestList () {
       const query = this.$route.query
-      console.log(query)
       const cityName = query.city_name
       const cate = query.cate
       const keyword = query.keyword
       const nature = query.nature
-      const page = query.page
+      const page = this.page
       const requestType = query.request_type
       const scene = query.scene
       const type = query.type
@@ -81,19 +85,28 @@ export default {
         nature,
         page,
         scene,
-        type,
+        type
       }
 
       this.axios.post('/list/demand', qs.stringify(data)).then(res => {
         if (res.status === 200 && res.data.status === '200') {
-          this.list = res.data.list
+          if (page === 1) {
+            this.list = res.data.list
+            this.page++
+          } else {
+            if (res.data.list.length > 0) {
+              this.list = this.list.concat(res.data.list)
+              this.page++
+            }
+          }
         }
-        console.log(res)
       })
     },
     linkNav (index) {
+      const id = this.list[index].id
       this.$router.push({
-        path: '/demandsDetail'
+        path: '/demandsDetail',
+        query: { id }
       })
     },
     handShowSearch () {
@@ -149,6 +162,23 @@ export default {
             line-height: 1;
             border: solid 1px #fff;
             margin-right: $scss_10px;
+          }
+        }
+        &.btn-wrapper {
+          padding-right: $scss_140px;
+          padding-left: $scss_140px;
+          button {
+            border: 0;
+            outline: 0;
+            border-radius: 0;
+            width: 100%;
+            height: $scss_70px;
+            background-color: #00baff;
+            border-radius: $scss_20px;
+            color: #fff;
+            font-size: $scss_32px;
+            line-height: $scss_70px;
+            padding: 0;
           }
         }
       }
