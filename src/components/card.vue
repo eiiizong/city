@@ -6,12 +6,12 @@
     <div class="border-bg"></div>
     <div class="content">
       <div class="left">
-        <i class="icon"
-           :class="data.iconClassName"></i>
+        <img :src="data.img"
+             :alt="data.cate">
       </div>
       <div class="right">
-        <p>{{data.title}}</p>
-        <span>{{data.desc}}</span>
+        <p>{{data.cate}}</p>
+        <span>共{{data.cnt}}项</span>
       </div>
     </div>
   </div>
@@ -52,7 +52,6 @@ export default {
     background-size: 100% 100%;
   }
   .content {
-    display: flex;
     position: absolute;
     top: $scss_10px;
     left: $scss_10px;
@@ -64,12 +63,19 @@ export default {
     line-height: $scss_38px;
     align-items: center;
     .left {
-      padding-left: $scss_16px;
+      position: absolute;
+      top: 50%;
+      left: $scss_12px;
+      transform: translateY(-50%);
+      margin-top: -$scss_8px;
+      img {
+        width: $scss_76px;
+      }
     }
     .right {
+      padding-left: $scss_100px;
       display: flex;
       flex-wrap: wrap;
-      margin-left: $scss_10px;
       padding-right: $scss_24px;
       span {
         width: 100%;
@@ -103,15 +109,6 @@ export default {
         }
       }
     }
-  }
-  .icon {
-    display: block;
-    width: $scss_76px;
-    height: $scss_80px;
-    background-image: url(../assets/img/icon-kjcxcy@2x.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    border-radius: 50%;
   }
 }
 </style>

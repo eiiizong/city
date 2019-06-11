@@ -2,7 +2,8 @@
   <div class="index">
     <router-link to="/home"
                  tag="li">
-      <transition v-if="titleShow">
+      <transition v-if="titleShow"
+                  :duration="500">
         <div class="title">
           <div class="left animated fadeInLeft"
                animate-delay="0s"
@@ -51,17 +52,19 @@ export default {
   components: {
   },
   created () {
-    console.log(new Date().getTime())
     setTimeout(() => {
       this.titleShow = true
+      setTimeout(() => {
+        this.textShow = true
+        this.textAuto()
+        setTimeout(() => {
+          this.imgShow = true
+        }, 10000)
+      }, 500)
     }, 500)
-    setTimeout(() => {
-      this.textShow = true
-      this.textAuto()
-    }, 2000)
-    setTimeout(() => {
-      this.imgShow = true
-    }, 12000)
+  },
+  destoryed () {
+    console.log('destoryed')
   },
   methods: {
     textAuto () {
@@ -97,13 +100,16 @@ export default {
 
 .index {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   background: url(../assets/img/bg.jpg) no-repeat left bottom;
   background-size: 100% 100%;
   color: #fff;
   font-size: $scss_24px;
   line-height: $scss_36px;
   padding: 0 $scss_56px;
+  position: absolute;
+  top: 0;
+  left: 0;
   .title {
     display: flex;
     justify-content: space-between;

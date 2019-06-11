@@ -3,11 +3,10 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://www.yangfugui.com/ordering/api/',
-        ws: true,
+        target: 'http://www.kbftech.cn/city/api/',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/api': '/'
         }
       }
     }

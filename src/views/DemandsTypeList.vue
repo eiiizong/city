@@ -4,8 +4,8 @@
             @click="handShowSearch" />
     <transition v-if="showList">
       <div class="content">
-        <ul v-show="!isShowSearch">
-          <li v-for="(item, index) in 6"
+        <ul v-show="!isShowSearch && list">
+          <li v-for="(item, index) in list"
               @click="linkNav(index)"
               class="animated bounceInLeft"
               :key="index">
@@ -33,13 +33,16 @@
 // @ is an alias to /src
 import TopNav from '@/components/top-nav.vue'
 import Search from '@/components/search.vue'
+
+import qs from 'qs'
 export default {
   name: 'demands-list',
   data () {
     return {
       showSearch: false,
       showList: false,
-      isShowSearch: false
+      isShowSearch: false,
+      list: []
     }
   },
   components: {
@@ -47,14 +50,47 @@ export default {
     Search
   },
   created () {
+    console.log(this.$route)
+
     setTimeout(() => {
       this.showSearch = true
     }, 0)
     setTimeout(() => {
       this.showList = true
     }, 0)
+
+    this.requestList()
   },
   methods: {
+    requestList () {
+      const query = this.$route.query
+      console.log(query)
+      const cityName = query.city_name
+      const cate = query.cate
+      const keyword = query.keyword
+      const nature = query.nature
+      const page = query.page
+      const requestType = query.request_type
+      const scene = query.scene
+      const type = query.type
+      const data = {
+        'city_name': cityName,
+        'request_type': requestType,
+        cate,
+        keyword,
+        nature,
+        page,
+        scene,
+        type,
+      }
+
+      this.axios.post('/list/demand', qs.stringify(data)).then(res => {
+        if (res.status === 200 && res.data.status === '200') {
+          this.list = res.data.list
+        }
+        console.log(res)
+      })
+    },
     linkNav (index) {
       this.$router.push({
         path: '/demandsDetail'
@@ -79,6 +115,9 @@ export default {
   color: #fff;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
   .content {
     flex: 1;
     width: 100%;

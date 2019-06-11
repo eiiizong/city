@@ -10,60 +10,18 @@
     <transition v-if="showNav">
       <div class="content">
         <ul>
-          <li class="common animated wobble rollIn">
+          <li class="animated wobble rollIn"
+              v-for="(item, index) in country"
+              :class="index%2===1?'reverse':'common'"
+              :key="index">
             <div class="img-wrapper animated wobble rollIn">
-              <img src="../assets/img/city/chengdu.jpg"
-                   alt="">
+              <img :src="item.img"
+                   :alt="item.name">
             </div>
             <div class="info">
-              <p><span>成都</span><span>Chengdu</span></p>
+              <p><span>{{item.name}}</span><span>{{item.name_en}}</span></p>
               <div class="btn-wrapper">
-                <router-link to="/demandsList">
-                  <span class="bg"></span>
-                  <span>点击进入</span>
-                </router-link>
-              </div>
-            </div>
-          </li>
-          <li class="reverse animated wobble rollIn">
-            <div class="img-wrapper animated wobble rollIn">
-              <img src="../assets/img/city/deyang.jpg"
-                   alt="">
-            </div>
-            <div class="info">
-              <p><span>德阳</span><span>Deyang</span></p>
-              <div class="btn-wrapper">
-                <router-link to="/demandsList">
-                  <span class="bg"></span>
-                  <span>点击进入</span>
-                </router-link>
-              </div>
-            </div>
-          </li>
-          <li class="common animated wobble rollIn">
-            <div class="img-wrapper animated wobble rollIn">
-              <img src="../assets/img/city/deyang.jpg"
-                   alt="">
-            </div>
-            <div class="info">
-              <p><span>德阳</span><span>Deyang</span></p>
-              <div class="btn-wrapper">
-                <router-link to="/demandsList">
-                  <span class="bg"></span>
-                  <span>点击进入</span>
-                </router-link>
-              </div>
-            </div>
-          </li>
-          <li class="reverse animated wobble rollIn">
-            <div class="img-wrapper animated wobble rollIn">
-              <img src="../assets/img/city/deyang.jpg"
-                   alt="">
-            </div>
-            <div class="info">
-              <p><span>德阳</span><span>Deyang</span></p>
-              <div class="btn-wrapper">
-                <router-link to="/demandsList">
+                <router-link :to="{ path: '/demandsList', query: { city_name: item.name }}">
                   <span class="bg"></span>
                   <span>点击进入</span>
                 </router-link>
@@ -85,18 +43,34 @@ export default {
   data () {
     return {
       showLogo: false,
-      showNav: false
+      showNav: false,
+      country: []
     }
   },
   created () {
     setTimeout(() => {
       this.showLogo = true
-    }, 0)
+    }, 500)
     setTimeout(() => {
       this.showNav = true
     }, 1000)
+
+    this.request()
   },
   components: {
+  },
+  methods: {
+    request () {
+      this.$http.post('/list/system').then(res => {
+        if (res.status === 200 && res.data.status === '200') {
+          this.country = res.data.country
+        }
+        console.log(res)
+      })
+    },
+    linkTo (index) {
+      console.log(index)
+    }
   }
 }
 </script>
@@ -112,6 +86,9 @@ export default {
   color: #fff;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
   .img-wrapper {
     width: 100%;
     text-align: center;

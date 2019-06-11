@@ -8,6 +8,11 @@ import Choice from './views/Choice.vue'
 import DemandsDetail from './views/DemandsDetail.vue'
 import DemandsTypeList from './views/DemandsTypeList.vue'
 
+Router.prototype.goBack = function () {
+  this.isback = true
+  window.history.go(-1)
+}
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,7 +22,8 @@ export default new Router({
       name: 'index',
       component: Index,
       meta: {
-        title: 'Index'
+        title: 'Index',
+        index: 0
       }
     },
     {
@@ -25,7 +31,8 @@ export default new Router({
       name: 'home',
       component: Home,
       meta: {
-        title: 'Home'
+        title: 'Home',
+        index: 1
       }
     },
     {
@@ -33,7 +40,8 @@ export default new Router({
       name: 'demandsList',
       component: DemandsList,
       meta: {
-        title: 'DemandsList'
+        title: 'DemandsList',
+        index: 2
       }
     },
     {
@@ -41,7 +49,8 @@ export default new Router({
       name: 'demandsTypeList',
       component: DemandsTypeList,
       meta: {
-        title: 'DemandsTypeList'
+        title: 'DemandsTypeList',
+        index: 4
       }
     },
     {
@@ -49,7 +58,8 @@ export default new Router({
       name: 'demandsDetail',
       component: DemandsDetail,
       meta: {
-        title: 'DemandsDetail'
+        title: 'DemandsDetail',
+        index: 5
       }
     },
     {
@@ -57,7 +67,8 @@ export default new Router({
       name: 'choice',
       component: Choice,
       meta: {
-        title: 'Choice'
+        title: 'Choice',
+        index: 3
       }
     }
   ]

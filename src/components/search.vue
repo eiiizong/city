@@ -6,27 +6,29 @@
              placeholder="产品需求">
       <button>搜索</button>
     </div>
-    <div class="item">
-      <h3>需求名目</h3>
+    <div class="item"
+         v-if="searchCity">
+      <h3>城市</h3>
       <div class="checkbox-group">
-        <label :for="'xqml' + index"
-               v-for="(item, index) in 6"
+        <label :for="'city' + index"
+               v-for="(item, index) in searchCity"
                :key="index">
           <input type="checkbox"
-                 :id="'xqml' + index">
-          <span>基础设施建设</span>
+                 :id="'city' + index">
+          <span>{{item}}</span>
         </label>
       </div>
     </div>
-    <div class="item">
+    <div class="item"
+         v-if="searchScene">
       <h3>类别</h3>
       <div class="checkbox-group">
         <label :for="'type' + index"
-               v-for="(item, index) in 6"
+               v-for="(item, index) in searchScene"
                :key="index">
           <input type="checkbox"
                  :id="'type' + index">
-          <span>建设</span>
+          <span>{{item}}</span>
         </label>
       </div>
     </div>
@@ -43,6 +45,12 @@ export default {
     isHasInputSearch: {
       type: Boolean,
       default: false
+    },
+    searchCity: {
+      type: Array
+    },
+    searchScene: {
+      type: Array
     }
   }
 }

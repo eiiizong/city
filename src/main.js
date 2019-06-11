@@ -3,24 +3,31 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// import qs from 'qs'
+
 import '../node_modules/animate.css/animate.css'
 
-axios.defaults.baseURL = 'https://www.yangfugui.com/ordering/api/'
-// axios.defaults.timeout = 2000
-// axios.defaults.method = 'POST'
-axios.defaults.baseURL = 'https://www.yangfugui.com/ordering/api/'
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
-axios.defaults.headers.post['Access-Control-Allow-Credentials'] = true
-// axios.defaults.headers = {
-//   'Accept': 'application/json',
-//   'content-type': 'application/x-www-form-urlencoded',
-//   'Access-Control-Allow-Origin': '*'
-// }
+axios.defaults.baseURL = 'http://www.kbftech.cn/city/api/'
 
-// axios.defaults.deta = {
-//   'device-type': 'wechat'
-// }
+axios.defaults.method = 'post'
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+axios.defaults.withCredentials = false
+
+// 添加响应拦截器
+// axios.interceptors.request.use(
+//   config => {
+//     if (config.method === 'post') {
+//       config.data = qs.stringify(config.data)
+//     }
+//     return config
+//   },
+//   error => {
+//     console.log(error)
+//     Promise.reject(error)
+//   }
+// )
+
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false

@@ -20,14 +20,14 @@
                 <div class="link"
                      @click.stop="clickNavDemandsList">
                   <span class="bg"></span>
-                  <span>需求清单(10)</span>
+                  <span>需求清单({{requestData.demand_cnt}})</span>
                 </div>
               </li>
               <li :class="navIndex===1?'active':''">
                 <div class="link"
                      @click.stop="clickNavGetsList">
                   <span class="bg"></span>
-                  <span>供给清单(5)</span>
+                  <span>供给清单({{requestData.supply_cnt}})</span>
                 </div>
               </li>
             </ul>
@@ -52,6 +52,8 @@
     <transition v-if="showSearch">
       <div v-if="isShowSearch">
         <Search @clickSearch="clickSearch"
+                :searchCity="searchCity"
+                :searchScene="searchScene"
                 :isHasInputSearch="false" />
       </div>
     </transition>
@@ -63,6 +65,7 @@
 import TopNav from '@/components/top-nav.vue'
 import Card from '@/components/card.vue'
 import Search from '@/components/search.vue'
+import qs from 'qs'
 
 export default {
   name: 'demands-list',
@@ -74,48 +77,11 @@ export default {
       showList: false,
       isShowSearch: false,
       navIndex: 0,
-      cardData: [
-        {
-          id: 0,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 1,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 2,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 3,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 4,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 5,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 6,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 7,
-          title: '服务实体经济',
-          desc: '共35项'
-        }
-      ],
+      requestData: {},
+      cardData: [],
+      searchCity: [],
+      searchScene: [],
+      city: ''
     }
   },
   components: {
@@ -134,51 +100,82 @@ export default {
     setTimeout(() => {
       this.showList = true
     }, 1500)
+
+    this.request()
+    this.requestSearchList()
   },
   methods: {
+    request () {
+      const cityName = this.$route.query.city_name
+      this.city = cityName
+      const data = {
+        'city_name': cityName
+      }
+      this.axios.post('/list/city', qs.stringify(data)).then(res => {
+        if (res.status === 200 && res.data.status === '200') {
+          this.requestData = res.data
+          this.cardData = res.data.demand_list
+        }
+      })
+    },
+    requestSearchList () {
+      this.axios.post('/list/system').then(res => {
+        if (res.status === 200 && res.data.status === '200') {
+          this.searchCity = res.data.city
+          this.searchScene = res.data.scene
+        }
+      })
+    },
+    requestSearch () {
+      const cityName = this.$route.query.city_name
+      const data = {
+        'city_name': cityName
+      }
+      this.axios.post('/list/city', qs.stringify(data)).then(res => {
+        if (res.status === 200 && res.data.status === '200') {
+          this.requestData = res.data
+          this.cardData = res.data.demand_list
+        }
+      })
+    },
     handleShowSearch () {
       this.isShowSearch = !this.isShowSearch
     },
     linkNav (index) {
-      console.log(index)
-      this.$router.push({
-        path: '/choice'
-      })
+      const cate = this.cardData[index].cate
+      const page = ''
+      const type = ''
+      const nature = ''
+      const scene = ''
+      const request_type = ''
+      const keyword = ''
+
+      let url = {
+        path: '/choice',
+        query: {
+          city_name: this.city,
+          cate,
+          page,
+          type,
+          nature,
+          scene,
+          request_type,
+          keyword
+        }
+      }
+      if (this.city !== '成都') {
+        url.path = '/demandsTypeList'
+      }
+      this.$router.push(url)
+
     },
     clickNavDemandsList () {
       this.navIndex = 0
-      this.cardData = [
-        {
-          id: 0,
-          title: '服务实体经济',
-          desc: '共35项'
-        },
-        {
-          id: 1,
-          title: '服务实体经济',
-          desc: '共35项'
-        }
-      ]
+      this.cardData = this.requestData.demand_list
     },
     clickNavGetsList () {
       this.navIndex = 1
-      this.cardData = [
-        {
-          id: 5,
-          title: '服务实体经济',
-          desc: '共30项'
-        },
-        {
-          id: 6,
-          title: '服务实体经济',
-          desc: '共30项'
-        },
-        {
-          id: 7,
-          title: '服务实体经济',
-          desc: '共30项'
-        }
-      ]
+      this.cardData = this.requestData.supply_list
     },
     clickSearch () {
       console.log('clickSearch')
@@ -197,6 +194,9 @@ export default {
   color: #fff;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
   .content {
     flex: 1;
     width: 100%;
@@ -273,12 +273,13 @@ export default {
       padding-bottom: $scss_172px;
       overflow: auto;
       ul {
-        height: 100%;
+        max-height: 100%;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         overflow: auto;
         padding: 0 $scss_42px;
+        align-items: flex-start;
         li {
           width: $scss_325px;
           height: $scss_170px;

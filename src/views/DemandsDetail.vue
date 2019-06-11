@@ -97,6 +97,9 @@ export default {
   color: #000;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
   .content {
     flex: 1;
     width: 100%;
