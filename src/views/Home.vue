@@ -31,12 +31,16 @@
         </ul>
       </div>
     </transition>
+
+    <MaskPopup :isShow="isShowHint"
+               @click="closePopup" />
+
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import MaskPopup from '@/components/mask.vue'
 
 export default {
   name: 'home',
@@ -44,7 +48,8 @@ export default {
     return {
       showLogo: false,
       showNav: false,
-      country: []
+      country: [],
+      isShowHint: true
     }
   },
   created () {
@@ -55,11 +60,25 @@ export default {
       this.showNav = true
     }, 1000)
 
+    this.initIsShowHint()
     this.request()
   },
   components: {
+    MaskPopup
   },
   methods: {
+    initIsShowHint () {
+      var a = localStorage.getItem("isShowHintHome")
+      if (!a) {
+        this.isShowHint = true
+      } else {
+        this.isShowHint = false
+      }
+    },
+    closePopup () {
+      this.isShowHint = false
+      localStorage.setItem("isShowHintHome", this.isShowHint);
+    },
     request () {
       this.$http.post('/list/system').then(res => {
         if (res.status === 200 && res.data.status === '200') {
