@@ -172,6 +172,8 @@
         </div>
       </div>
     </transition>
+    <MaskPopup :isShow="isShowHint"
+               @click="closePopup" />
   </div>
 </template>
 
@@ -179,6 +181,8 @@
 // @ is an alias to /src
 import TopNav from '@/components/top-nav.vue'
 import Card from '@/components/card.vue'
+
+import MaskPopup from '@/components/mask.vue'
 // import Search from '@/components/search.vue'
 import qs from 'qs'
 
@@ -224,12 +228,14 @@ export default {
       sceneStr: '',
       city: '',
       searchKeywordStr: '',
-      searchCityStr: ''
+      searchCityStr: '',
+      isShowHint: false
     }
   },
   components: {
     TopNav,
-    Card
+    Card,
+    MaskPopup
     // Search
   },
   created () {
@@ -243,11 +249,23 @@ export default {
     setTimeout(() => {
       this.showList = true
     }, 1500)
-
+    this.initIsShowHint()
     this.request()
     this.requestSearchList()
   },
   methods: {
+    initIsShowHint () {
+      var a = localStorage.getItem("isShowHintList")
+      if (!a) {
+        this.isShowHint = true
+      } else {
+        this.isShowHint = false
+      }
+    },
+    closePopup () {
+      this.isShowHint = false
+      localStorage.setItem("isShowHintList", this.isShowHint);
+    },
     request () {
       const cityName = this.$route.query.city_name
       this.city = cityName

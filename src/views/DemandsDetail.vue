@@ -8,8 +8,8 @@
     <div class="content">
       <transition>
         <div class="top">
-          <img src="../assets/img/detail-bg.jpg"
-               alt="logo">
+          <!-- <img src="../assets/img/detail-bg.jpg"
+               alt="logo"> -->
           <div class="info">
             <div class="title"
                  v-if="detail.name||detail.carrier_name">{{detail.name||detail.carrier_name}}</div>
@@ -143,7 +143,7 @@ export default {
 .demands-detail {
   width: 100%;
   height: 100%;
-  color: #000;
+  color: #fff;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -153,9 +153,13 @@ export default {
     flex: 1;
     width: 100%;
     overflow: auto;
+    background-image: url(../assets/img/bg.jpg);
+    background-size: cover;
     .top {
       position: relative;
       min-height: $scss_158px;
+      background-image: url(../assets/img/detail-bg.jpg);
+      background-size: cover;
       img {
         width: 100%;
       }
@@ -198,7 +202,7 @@ export default {
         font-size: $scss_28px;
         font-weight: 500;
         line-height: $scss_42px;
-        color: #010101;
+        color: #fff;
         // align-items: center;
         padding-top: $scss_50px;
         min-height: $scss_132px;
