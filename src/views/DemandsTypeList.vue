@@ -9,10 +9,11 @@
               @click="linkNav(index)"
               class="animated bounceInLeft"
               :key="item.id">
-            <div class="title">{{item.name}}</div>
+            <div class="title">{{item.name||item.carrier_name}}</div>
             <div class="name">
-              <span class="tag">{{item.request_type}}</span>
-              <span>{{item.contact_company}}</span>
+              <span class="tag"
+                    v-if="item.scene||item.type">{{item.scene||item.type}}</span>
+              <span>{{item.contact_company||item.sponsor}}</span>
             </div>
           </li>
           <li class="btn-wrapper">

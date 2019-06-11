@@ -22,7 +22,7 @@ export default new Router({
       name: 'index',
       component: Index,
       meta: {
-        title: 'Index',
+        title: '城市机会',
         index: 0
       }
     },
@@ -31,7 +31,7 @@ export default new Router({
       name: 'home',
       component: Home,
       meta: {
-        title: 'Home',
+        title: '城市机会',
         index: 1
       }
     },
@@ -40,7 +40,7 @@ export default new Router({
       name: 'demandsList',
       component: DemandsList,
       meta: {
-        title: 'DemandsList',
+        title: '城市机会',
         index: 2
       }
     },
@@ -49,7 +49,7 @@ export default new Router({
       name: 'demandsTypeList',
       component: DemandsTypeList,
       meta: {
-        title: 'DemandsTypeList',
+        title: '城市机会',
         index: 4
       }
     },
@@ -58,7 +58,7 @@ export default new Router({
       name: 'demandsDetail',
       component: DemandsDetail,
       meta: {
-        title: 'DemandsDetail',
+        title: '城市机会',
         index: 5
       }
     },
@@ -67,7 +67,7 @@ export default new Router({
       name: 'choice',
       component: Choice,
       meta: {
-        title: 'Choice',
+        title: '城市机会',
         index: 3
       }
     }

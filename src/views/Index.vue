@@ -32,6 +32,7 @@
                class="animated rollIn fadeIn"
                alt="">
         </transition>
+        <button>立即进入</button>
       </div>
     </router-link>
   </div>
@@ -107,7 +108,7 @@ export default {
   font-size: $scss_24px;
   line-height: $scss_36px;
   padding: 0 $scss_56px;
-  padding-bottom: $scss_60px;
+  padding-bottom: $scss_120px;
   position: absolute;
   top: 0;
   left: 0;
@@ -148,6 +149,21 @@ export default {
       padding-top: $scss_30px;
       width: 100%;
     }
+  }
+  button {
+    width: 200px;
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    background-color: #00baff;
+    border-radius: $scss_10px;
+    color: #fff;
+    font-size: $scss_32px;
+    line-height: $scss_70px;
+    outline: 0;
+    padding: 0;
+    border: 0;
   }
 }
 </style>

@@ -11,10 +11,12 @@
           <img src="../assets/img/detail-bg.jpg"
                alt="logo">
           <div class="info">
-            <div class="title">{{detail.name}}</div>
+            <div class="title"
+                 v-if="detail.name||detail.carrier_name">{{detail.name||detail.carrier_name}}</div>
             <div class="name">
-              <span class="tag">{{detail.request_type}}</span>
-              <span>{{detail.contact_company}}</span>
+              <span class="tag"
+                    v-if="detail.scene||detail.type">{{detail.scene||detail.type}}</span>
+              <span v-if="detail.contact_company||detail.sponsor">{{detail.contact_company||detail.sponsor}}</span>
             </div>
           </div>
         </div>
@@ -128,7 +130,7 @@ export default {
     },
     backToMenu () {
       this.$router.push({
-        path: '/'
+        path: '/home'
       })
     }
   }
