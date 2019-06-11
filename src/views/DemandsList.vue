@@ -177,7 +177,7 @@ export default {
       this.cardData = this.requestData.supply_list
     },
     clickSearch () {
-      console.log('clickSearch')
+      console.log('clickSearch111')
     }
   }
 }

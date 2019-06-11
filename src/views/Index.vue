@@ -100,13 +100,14 @@ export default {
 
 .index {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background: url(../assets/img/bg.jpg) no-repeat left bottom;
   background-size: 100% 100%;
   color: #fff;
   font-size: $scss_24px;
   line-height: $scss_36px;
   padding: 0 $scss_56px;
+  padding-bottom: $scss_60px;
   position: absolute;
   top: 0;
   left: 0;

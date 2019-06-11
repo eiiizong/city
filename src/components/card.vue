@@ -62,6 +62,7 @@ export default {
     font-size: $scss_32px;
     line-height: $scss_38px;
     align-items: center;
+    display: flex;
     .left {
       position: absolute;
       top: 50%;
@@ -77,6 +78,8 @@ export default {
       display: flex;
       flex-wrap: wrap;
       padding-right: $scss_24px;
+      margin: auto;
+      transform: translateY(-$scss_8px);
       span {
         width: 100%;
         font-size: $scss_22px;

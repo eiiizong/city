@@ -7,7 +7,7 @@
         <audio controls="controls"
                autoplay="autoplay"
                loop="loop"
-               src="assets/music/music.mp3"
+               :src="musicUrl"
                ref="audio">您的浏览器不支持 audio 标签。</audio>
         <i class="icon icon-audio"
            :class="musicIsPlay?'animation':''"
@@ -28,17 +28,26 @@ export default {
     return {
       musicIsPlay: true,
       showAudio: false,
-      transitionName: ''
+      transitionName: '',
+      musicUrl: ''
     }
   },
   created () {
     setTimeout(() => {
       this.showAudio = true
     }, 500)
+    this.request()
   },
   mounted () {
   },
   methods: {
+    request () {
+      this.$http.post('/list/system').then(res => {
+        if (res.status === 200 && res.data.status === '200') {
+          this.musicUrl = res.data.music_url
+        }
+      })
+    },
     handleMusic () {
       console.log(this.$refs.audio)
       if (this.musicIsPlay) {
@@ -69,7 +78,7 @@ export default {
 .audio {
   height: 0;
   position: fixed;
-  top: 50px;
+  bottom: 80px;
   right: 10px;
   z-index: 999;
 }
@@ -82,7 +91,8 @@ audio {
   width: $scss_100px;
   height: $scss_100px;
   border-radius: 50%;
-  background: url(assets/img/icon-music.png) no-repeat #fff;
+  color: transparent;
+  background: url(assets/img/icon-music.png) no-repeat;
   background-size: 100% 100%;
   -webkit-animation: music 5s linear;
   &.animation {
